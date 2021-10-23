@@ -11,7 +11,7 @@ _Page Sample Screenshot:_
 
 ### Access
 
-Access the live site [here!](INSERT LIVE LINK)
+Access the live site [here!](https://lsabin23.github.io/password-generator/)
 
 ### Known Issues
 
