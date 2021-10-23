@@ -72,6 +72,10 @@ header {
   clear: both;
 }
 
+.card-footer p {
+  color:red;
+}
+
 .btn {
   border: none;
   background-color: hsl(360, 91%, 36%);
