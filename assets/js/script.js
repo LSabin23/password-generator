@@ -1,55 +1,110 @@
 // Assignment Code
 var generateBtn = document.querySelector('#generate')
 
+// FXN FOR PASSWORD LENGTH
+var passLength = function () {
+  // length prompt: 8 to 128 characters, validate input
+  var charPrompt = window.prompt('Enter a value for number of password characters (from 8 to 128).')
+
+  if (charPrompt < 8 || charPrompt > 128 || isNaN(charPrompt)) {
+    window.alert('Please enter a number from 8 to 128.')
+    passLength()
+  }
+  else {
+    return charPrompt
+  }
+}
+
+// FXN FOR UPPER CASE
+var addUpperChars = function () {
+
+  var confirmUpper = window.confirm('Include uppercase characters?')
+  if (confirmUpper) {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
+// FXN FOR LOWER CASE
+var addLowerChars = function () {
+
+  var confirmLower = window.confirm('Include lowercase characters?')
+  if (confirmLower) {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
+// FXN FOR NUMERIC CHAR
+var addNumChars = function () {
+  // character type prompt: numeric
+  var confirmNumeric = window.confirm('Include numeric characters?')
+
+  if (confirmNumeric) {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
+// FXN FOR SPECIAL CHAR
+var addSpecChars = function () {
+  // character type prompt: special
+  var confirmSpecial = window.confirm('Include special characters?')
+
+  if (confirmSpecial) {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
+var charChoices = [
+  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+  [' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~']
+]
+
+// generate a password reflective of user prompt choices
+function generatePassword () {
+  var passLengthResponse = passLength()
+  var addUpperCharsResponse = addUpperChars()
+  var addLowerCharsResponse = addLowerChars()
+  var addNumCharsResponse = addNumChars()
+  var addSpecCharsResponse = addSpecChars()
+
+  // set new password var to empty string to avoid undefined message upon generation
+  var newPassword = ''
+  // 3 - use for loop and Math.random() to select random char from char array
+  if (addUpperCharsResponse && addLowerCharsResponse && addNumCharsResponse && addSpecCharsResponse) {
+    for (var i = 0; i < passLengthResponse; i++) {
+      // randomly select from upper, lower, numeric, and special char arrays
+      var charArrayChoice = charChoices[Math.floor(Math.random() * charChoices.length)]
+      // charArrayChoice contains the element itself, not the index num
+      var charIndex = charChoices.indexOf(charArrayChoice)
+      var chosenChar = charChoices[charIndex][Math.floor(Math.random() * charChoices[charIndex].length)]
+      newPassword = newPassword + chosenChar
+    }
+  }
+  // else if ()
+  // other else if conditions
+  return newPassword
+
+}
+
 // Write password to the #password input
 function writePassword () {
   var password = generatePassword()
 
   var passwordText = document.querySelector('#password')
   passwordText.value = password
-
-}
-
-function generatePassword () {
-  // length prompt: 8 to 128 characters, validate input
-  var charPrompt = window.prompt('Enter a value for number of password characters (from 8 to 128).')
-
-  if (charPrompt < 8 || charPrompt > 128 || isNaN(charPrompt)) {
-    window.alert('Please enter a number from 8 to 128.')
-    return generatePassword()
-  }
-  else {
-    // use charCount value to set length of password string
-  }
-
-  // character type prompt: uppercase
-  var confirmUpper = window.confirm('Include uppercase characters?')
-
-  if (confirmUpper) {
-    // allow uppercase letters in password string
-  }
-
-  // character type prompt: lowercase
-  var confirmLower = window.confirm('Include lowercase characters?')
-
-  if (confirmLower) {
-    // allow lowercase letters in password string
-  }
-
-  // character type prompt: numeric
-  var confirmNumeric = window.confirm('Include numeric characters?')
-
-  if (confirmNumeric) {
-    // allow numeric characters in password string
-  }
-
-  // character type prompt: special
-  var confirmSpecial = window.confirm('Include special characters?')
-
-  if (confirmSpecial) {
-    // allow special characters in password string
-  }
-
 }
 
 // Add event listener to generate button
