@@ -87,7 +87,7 @@ function generatePassword () {
 
   if (!addUpperCharsResponse && !addLowerCharsResponse && !addNumCharsResponse && !addSpecCharsResponse) {
     alert('Let\'s try that again, shall we? You must include at least one criteria option.')
-    generatePassword()
+    writePassword()
   }
 
   // 3 - use for loop and Math.random() to select random char from char array
@@ -168,8 +168,6 @@ function writePassword () {
 
   var passwordText = document.querySelector('#password')
   passwordText.value = password
-
-  console.log(password)
 }
 
 // Add event listener to generate button
