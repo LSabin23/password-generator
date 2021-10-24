@@ -2,7 +2,7 @@
 var generateBtn = document.querySelector('#generate')
 
 // set new password var to empty string to avoid undefined message upon generation
-// var newPassword = ''
+var newPassword = ''
 
 var charChoices = [
   ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
@@ -11,13 +11,19 @@ var charChoices = [
   ['!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~']
 ]
 
+var randomNum = function (min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min)
+  return value
+}
+
 var passLength = function () {
   // length prompt: 8 to 128 characters, validate input
   var charPrompt = window.prompt('Enter a value for number of password characters (from 8 to 128).')
 
   if (charPrompt < 8 || charPrompt > 128 || isNaN(charPrompt)) {
-    window.alert('Please enter a valid number from 8 to 128.')
-    writePassword()
+    window.alert('A random valid number will be chosen for you.')
+    charPrompt = randomNum(8, 128)
+    return charPrompt
   }
   else {
     return charPrompt
@@ -152,7 +158,17 @@ function generatePassword () {
     charChoices.splice(1, 2)
     createPassword()
   }
-  else (!addUpperCharsResponse && !addLowerCharsResponse && !addNumCharsResponse && !addSpecCharsResponse) {
+  else if (addUpperCharsResponse && addLowerCharsResponse && !addNumCharsResponse && addSpecCharsResponse) {
+    // remove num
+    charChoices.splice(2, 1)
+    createPassword()
+  }
+  else if (addUpperCharsResponse && !addLowerCharsResponse && addNumCharsResponse && addSpecCharsResponse) {
+    // remove lower
+    charChoices.splice(1, 1)
+    createPassword()
+  }
+  else if (!addUpperCharsResponse && !addLowerCharsResponse && !addNumCharsResponse && !addSpecCharsResponse) {
     alert('Let\'s try that again, shall we? You must include at least one criteria option.')
     writePassword()
   }
